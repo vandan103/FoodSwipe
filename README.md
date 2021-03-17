@@ -1,4 +1,4 @@
-# food_course
+# FoodSwipe
 
 A new Flutter application.
 
