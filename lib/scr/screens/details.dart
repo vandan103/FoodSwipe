@@ -1,12 +1,12 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
-import 'package:food_course/scr/helpers/screen_navigation.dart';
-import 'package:food_course/scr/models/products.dart';
-import 'package:food_course/scr/providers/app.dart';
-import 'package:food_course/scr/providers/user.dart';
-import 'package:food_course/scr/screens/cart.dart';
-import 'package:food_course/scr/widgets/custom_text.dart';
-import 'package:food_course/scr/widgets/loading.dart';
+import 'package:foodswipe/scr/helpers/screen_navigation.dart';
+import 'package:foodswipe/scr/models/products.dart';
+import 'package:foodswipe/scr/providers/app.dart';
+import 'package:foodswipe/scr/providers/user.dart';
+import 'package:foodswipe/scr/screens/cart.dart';
+import 'package:foodswipe/scr/widgets/custom_text.dart';
+import 'package:foodswipe/scr/widgets/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -61,7 +61,7 @@ class _DetailsState extends State<Details> {
             SizedBox(height: 15,),
 
             CustomText(text: widget.product.name,size: 26,weight: FontWeight.bold),
-            CustomText(text: "\$${widget.product.price / 100}",size: 20,weight: FontWeight.w400),
+            CustomText(text: "\₹${widget.product.price }",size: 20,weight: FontWeight.w400),
             SizedBox(height: 10,),
 
             CustomText(text: "Description",size: 18,weight: FontWeight.w400),

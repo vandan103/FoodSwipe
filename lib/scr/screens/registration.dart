@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:food_course/scr/helpers/screen_navigation.dart';
-import 'package:food_course/scr/helpers/style.dart';
-import 'package:food_course/scr/providers/category.dart';
-import 'package:food_course/scr/providers/product.dart';
-import 'package:food_course/scr/providers/restaurant.dart';
-import 'package:food_course/scr/providers/user.dart';
-import 'package:food_course/scr/screens/login.dart';
-import 'package:food_course/scr/widgets/custom_text.dart';
-import 'package:food_course/scr/widgets/loading.dart';
+import 'package:foodswipe/scr/helpers/screen_navigation.dart';
+import 'package:foodswipe/scr/helpers/style.dart';
+import 'package:foodswipe/scr/providers/user.dart';
+import 'package:foodswipe/scr/screens/login.dart';
+import 'package:foodswipe/scr/widgets/custom_text.dart';
+import 'package:foodswipe/scr/widgets/loading.dart';
 import 'package:provider/provider.dart';
 
 import 'home.dart';
@@ -22,21 +19,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<UserProvider>(context);
-    final categoryProvider = Provider.of<CategoryProvider>(context);
-    final restaurantProvider = Provider.of<RestaurantProvider>(context);
-    final productProvider = Provider.of<ProductProvider>(context);
-
+    final userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       key: _key,
       backgroundColor: white,
-      body: authProvider.status == Status.Authenticating? Loading() : SingleChildScrollView(
+      body: userProvider.status == Status.Authenticating? Loading() : SingleChildScrollView(
         child: Column(
           children: <Widget>[
             SizedBox(
               height: 100,
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -57,7 +49,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
                 child: Padding(padding: EdgeInsets.only(left: 10),
                   child: TextFormField(
-                    controller: authProvider.name,
+                    controller: userProvider.name,
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: "Username",
@@ -84,7 +76,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
                 child: Padding(padding: EdgeInsets.only(left: 10),
                   child: TextFormField(
-                    controller: authProvider.email,
+                    controller: userProvider.email,
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: "Email",
@@ -113,7 +105,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
                 child: Padding(padding: EdgeInsets.only(left: 10),
                   child: TextFormField(
-                    controller: authProvider.password,
+                    controller: userProvider.password,
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: "Password",
@@ -144,7 +136,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
                 child: Padding(padding: EdgeInsets.only(left: 10),
                   child: TextFormField(
-                    controller: authProvider.cpassword,
+                    controller: userProvider.cpassword,
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: " Confirm Password",
@@ -156,7 +148,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         return 'Please re-enter password';
                       }
 
-                      if(authProvider.password.text!=authProvider.cpassword.text){
+                      if(userProvider.password.text!=userProvider.cpassword.text){
                         return "Password does not match";
                       }
                       return null;
@@ -171,20 +163,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               padding: const EdgeInsets.all(10),
               child: GestureDetector(
                 onTap: ()async{
-                  print("BTN CLICKED!!!!");
+                  print(" REGISTER BTN CLICKED!!!!");
 
 
-                  if(!await authProvider.signUp()){
+                  if(!await userProvider.signUp()){
                     _key.currentState.showSnackBar(
                         SnackBar(content: Text("Resgistration failed!"))
                     );
                     return;
                   }
-                  categoryProvider.loadCategories();
-                 // restaurantProvider.loadSingleRestaurant();
-                  productProvider.loadProducts();
-                  authProvider.clearController();
-                  changeScreenReplacement(context, Home());
+                  userProvider.clearController();
+                  changeScreen(context, Home());
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -197,12 +186,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         CustomText(text: "Register", color: white, size: 22,)
-
                       ],
-
                     ),
                   ),
-
                 ),
               ),
             ),

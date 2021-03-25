@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:food_course/scr/models/cart_item.dart';
-import 'package:food_course/scr/models/user.dart';
+import 'package:foodswipe/scr/models/cart_item.dart';
+import 'package:foodswipe/scr/models/user.dart';
 
 class UserServices{
   String collection = "users";
@@ -23,6 +23,7 @@ class UserServices{
       "cart": FieldValue.arrayUnion([cartItem.toMap()])
     });
   }
+
 
   void removeFromCart({String userId, CartItemModel cartItem}){
     print("THE USER ID IS: $userId");

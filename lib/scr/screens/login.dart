@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:food_course/scr/helpers/screen_navigation.dart';
-import 'package:food_course/scr/helpers/style.dart';
-import 'package:food_course/scr/providers/category.dart';
-import 'package:food_course/scr/providers/product.dart';
-import 'package:food_course/scr/providers/restaurant.dart';
-import 'package:food_course/scr/providers/user.dart';
-import 'package:food_course/scr/screens/home.dart';
-import 'package:food_course/scr/screens/registration.dart';
-import 'package:food_course/scr/widgets/custom_text.dart';
-import 'package:food_course/scr/widgets/loading.dart';
+import 'package:foodswipe/scr/helpers/screen_navigation.dart';
+import 'package:foodswipe/scr/helpers/style.dart';
+import 'package:foodswipe/scr/providers/category.dart';
+import 'package:foodswipe/scr/providers/product.dart';
+import 'package:foodswipe/scr/providers/restaurant.dart';
+import 'package:foodswipe/scr/providers/user.dart';
+import 'package:foodswipe/scr/screens/home.dart';
+import 'package:foodswipe/scr/screens/registration.dart';
+import 'package:foodswipe/scr/widgets/custom_text.dart';
+import 'package:foodswipe/scr/widgets/loading.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -21,15 +21,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<UserProvider>(context);
-    final categoryProvider = Provider.of<CategoryProvider>(context);
-    final restaurantProvider = Provider.of<RestaurantProvider>(context);
-    final productProvider = Provider.of<ProductProvider>(context);
-
+    final userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       key: _key,
       backgroundColor: white,
-      body: authProvider.status == Status.Authenticating? Loading() : SingleChildScrollView(
+      body: userProvider.status == Status.Authenticating? Loading() : SingleChildScrollView(
         child: Column(
           children: <Widget>[
             SizedBox(
@@ -55,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                ),
                child: Padding(padding: EdgeInsets.only(left: 10),
                child: TextFormField(
-                 controller: authProvider.email,
+                 controller: userProvider.email,
                  decoration: InputDecoration(
                      border: InputBorder.none,
                      hintText: "Email",
@@ -74,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 child: Padding(padding: EdgeInsets.only(left: 10),
                   child: TextFormField(
-                    controller: authProvider.password,
+                    controller: userProvider.password,
                     decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: "Password",
@@ -87,16 +83,14 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.all(10),
               child: GestureDetector(
                 onTap: ()async{
-                  if(!await authProvider.signIn()){
+                  if(!await userProvider.signIn()){
                     _key.currentState.showSnackBar(
                       SnackBar(content: Text("Login failed!"))
                     );
                     return;
                   }
-                  categoryProvider.loadCategories();
-                 // restaurantProvider.loadSingleRestaurant();
-                  productProvider.loadProducts();
-                  authProvider.clearController();
+
+                   userProvider.clearController();
                   changeScreenReplacement(context, Home());
                 },
                 child: Container(
@@ -114,6 +108,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),),
                 ),
               ),
+            ),
+            SizedBox(
+              height: 5,
             ),
 
             GestureDetector(

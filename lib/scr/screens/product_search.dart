@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:food_course/scr/helpers/screen_navigation.dart';
-import 'package:food_course/scr/helpers/style.dart';
-import 'package:food_course/scr/providers/product.dart';
-import 'package:food_course/scr/screens/details.dart';
-import 'package:food_course/scr/widgets/custom_text.dart';
-import 'package:food_course/scr/widgets/product.dart';
+import 'package:foodswipe/scr/helpers/screen_navigation.dart';
+import 'package:foodswipe/scr/helpers/style.dart';
+import 'package:foodswipe/scr/providers/product.dart';
+import 'package:foodswipe/scr/screens/details.dart';
+import 'package:foodswipe/scr/widgets/custom_text.dart';
+import 'package:foodswipe/scr/widgets/product.dart';
 import 'package:provider/provider.dart';
 
 class ProductSearchScreen extends StatelessWidget {

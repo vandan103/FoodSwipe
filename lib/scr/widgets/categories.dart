@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_course/scr/models/category.dart';
-import 'package:food_course/scr/widgets/loading.dart';
+import 'package:foodswipe/scr/models/category.dart';
+import 'package:foodswipe/scr/widgets/loading.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../helpers/style.dart';
@@ -55,7 +55,8 @@ class CategoryWidget extends StatelessWidget {
                     Colors.black.withOpacity(0.05),
                     Colors.black.withOpacity(0.025),
                   ],
-                )),
+                ),
+            ),
           ),
 
           Positioned.fill(

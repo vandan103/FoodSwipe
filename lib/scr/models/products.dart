@@ -22,12 +22,11 @@ class ProductModel {
   String _category;
   String _image;
   String _description;
-
   double _rating;
   int _price;
   int _rates;
-
   bool _featured;
+
 
   String get id => _id;
 

@@ -9,7 +9,6 @@ class CategoryModel {
   String _name;
   String _image;
 
-  //  getters
   String get id => _id;
 
   String get name => _name;

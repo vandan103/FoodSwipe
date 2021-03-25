@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:food_course/scr/helpers/order.dart';
-import 'package:food_course/scr/helpers/user.dart';
-import 'package:food_course/scr/models/cart_item.dart';
-import 'package:food_course/scr/models/order.dart';
-import 'package:food_course/scr/models/products.dart';
-import 'package:food_course/scr/models/user.dart';
+import 'package:foodswipe/scr/helpers/order.dart';
+import 'package:foodswipe/scr/helpers/user.dart';
+import 'package:foodswipe/scr/models/cart_item.dart';
+import 'package:foodswipe/scr/models/order.dart';
+import 'package:foodswipe/scr/models/products.dart';
+import 'package:foodswipe/scr/models/user.dart';
 import 'package:uuid/uuid.dart';
 
 
@@ -30,7 +30,7 @@ class UserProvider with ChangeNotifier{
   Status get status => _status;
   FirebaseUser get user => _user;
 
-  // public variables
+
   List<OrderModel> orders = [];
 
   final formkey = GlobalKey<FormState>();
@@ -69,8 +69,6 @@ class UserProvider with ChangeNotifier{
           'name':name.text,
           'email':email.text,
           'uid':result.user.uid,
-          "likedFood": [],
-          "likedRestaurants": []
         });
       });
       return true;
@@ -92,6 +90,7 @@ class UserProvider with ChangeNotifier{
   void clearController(){
     name.text = "";
     password.text = "";
+    cpassword.text = "";
     email.text = "";
   }
 
@@ -112,15 +111,14 @@ class UserProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  Future<bool> addToCard({ProductModel product, int quantity})async{
-    print("THE PRODUC IS: ${product.toString()}");
-    print("THE qty IS: ${quantity.toString()}");
+  Future<bool> addToCard({ProductModel product, int quantity}) async{
+    print("THE PRODUCT IS: ${product.toString()}");
+    print("THE quantity IS: ${quantity.toString()}");
 
     try{
       var uuid = Uuid();
       String cartItemId = uuid.v4();
       List cart = _userModel.cart;
-//      bool itemExists = false;
       Map cartItem ={
         "id": cartItemId,
         "name": product.name,
@@ -133,14 +131,10 @@ class UserProvider with ChangeNotifier{
       };
 
         CartItemModel item = CartItemModel.fromMap(cartItem);
-//      if(!itemExists){
         print("CART ITEMS ARE: ${cart.toString()}");
         _userServicse.addToCart(userId: _user.uid, cartItem: item);
-//      }
-
-
-
       return true;
+
     }catch(e){
       print("THE ERROR ${e.toString()}");
       return false;
@@ -154,7 +148,7 @@ class UserProvider with ChangeNotifier{
   }
 
   Future<bool> removeFromCart({CartItemModel cartItem})async{
-    print("THE PRODUC IS: ${cartItem.toString()}");
+    print("THE PRODUCT IS: ${cartItem.toString()}");
 
     try{
       _userServicse.removeFromCart(userId: _user.uid, cartItem: cartItem);

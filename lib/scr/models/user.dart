@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:food_course/scr/models/cart_item.dart';
+import 'package:foodswipe/scr/models/cart_item.dart';
 
 class UserModel{
   static const ID = "id";

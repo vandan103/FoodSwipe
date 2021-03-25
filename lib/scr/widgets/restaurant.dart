@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:food_course/scr/helpers/style.dart';
-import 'package:food_course/scr/models/restaurant.dart';
-import 'package:food_course/scr/widgets/custom_text.dart';
-import 'package:food_course/scr/widgets/small_floating_button.dart';
+import 'package:foodswipe/scr/helpers/style.dart';
+import 'package:foodswipe/scr/models/restaurant.dart';
+import 'package:foodswipe/scr/widgets/custom_text.dart';
+import 'package:foodswipe/scr/widgets/small_floating_button.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import 'loading.dart';
@@ -15,7 +15,7 @@ class RestaurantWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top:2, left:2, right: 2, bottom: 4),
+      padding: const EdgeInsets.only(top:3, left:2, right: 2, bottom: 4),
       child: Stack(
         children: <Widget>[
           _backgroundImage(restaurant.image),
@@ -97,7 +97,7 @@ class RestaurantWidget extends StatelessWidget {
                                   fontSize: 16,
                                   fontWeight: FontWeight.w300)),
                           TextSpan(
-                              text: "\$${restaurant.avgPrice} \n",
+                              text: "\₹${restaurant.avgPrice} \n",
                               style: TextStyle(fontSize: 16)),
                         ], style: TextStyle(color: white)),
                       ),

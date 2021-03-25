@@ -23,7 +23,6 @@ class CartItemModel {
 
 
 
-  //  getters
   String get id => _id;
 
   String get name => _name;

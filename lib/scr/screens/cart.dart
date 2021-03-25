@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:food_course/scr/helpers/order.dart';
-import 'package:food_course/scr/helpers/style.dart';
-import 'package:food_course/scr/models/cart_item.dart';
-import 'package:food_course/scr/models/products.dart';
-import 'package:food_course/scr/providers/app.dart';
-import 'package:food_course/scr/providers/user.dart';
-import 'package:food_course/scr/widgets/custom_text.dart';
-import 'package:food_course/scr/widgets/loading.dart';
+import 'package:foodswipe/scr/screens/home.dart';
+import 'package:foodswipe/scr/helpers/screen_navigation.dart';
+import 'package:foodswipe/scr/helpers/order.dart';
+import 'package:foodswipe/scr/helpers/style.dart';
+import 'package:foodswipe/scr/models/cart_item.dart';
+import 'package:foodswipe/scr/models/products.dart';
+import 'package:foodswipe/scr/providers/app.dart';
+import 'package:foodswipe/scr/providers/user.dart';
+import 'package:foodswipe/scr/widgets/custom_text.dart';
+import 'package:foodswipe/scr/widgets/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 class CartScreen extends StatefulWidget {
   @override
-  _CartScreenState createState() => _CartScreenState();
+  _CartScreenState createState() {
+    return _CartScreenState();
+  }
 }
 
 class _CartScreenState extends State<CartScreen> {
@@ -23,8 +27,6 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context);
     final app = Provider.of<AppProvider>(context);
-
-
 
     return Scaffold(
       key: _key,
@@ -56,7 +58,8 @@ class _CartScreenState extends State<CartScreen> {
                           color: red.withOpacity(0.2),
                           offset: Offset(3, 2),
                           blurRadius: 30)
-                    ]),
+                    ]
+                ),
                 child: Row(
                   children: <Widget>[
                     ClipRRect(
@@ -77,9 +80,10 @@ class _CartScreenState extends State<CartScreen> {
                     Expanded(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
+                        children: [
                           RichText(
-                            text: TextSpan(children: [
+                            text: TextSpan(
+                                children: [
                               TextSpan(
                                   text: user.userModel.cart[index].name+ "\n",
                                   style: TextStyle(
@@ -87,7 +91,7 @@ class _CartScreenState extends State<CartScreen> {
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold)),
                               TextSpan(
-                                  text: "\$${user.userModel.cart[index].price / 100} \n\n",
+                                  text: "\₹${user.userModel.cart[index].price } \n\n",
                                   style: TextStyle(
                                       color: black,
                                       fontSize: 18,
@@ -104,7 +108,8 @@ class _CartScreenState extends State<CartScreen> {
                                       color: primary,
                                       fontSize: 16,
                                       fontWeight: FontWeight.w400)),
-                            ]),
+                            ]
+                            ),
                           ),
                           IconButton(
                               icon: Icon(
@@ -116,7 +121,7 @@ class _CartScreenState extends State<CartScreen> {
                                 bool value = await user.removeFromCart(cartItem: user.userModel.cart[index]);
                                 if(value){
                                   user.reloadUserModel();
-                                  print("Item added to cart");
+                                  print("Item Removed from cart");
                                   _key.currentState.showSnackBar(
                                       SnackBar(content: Text("Removed from Cart!"))
                                   );
@@ -126,7 +131,8 @@ class _CartScreenState extends State<CartScreen> {
                                   print("ITEM WAS NOT REMOVED");
                                   app.changeLoading();
                                 }
-                              })
+                              }
+                              ),
                         ],
                       ),
                     )
@@ -151,7 +157,7 @@ class _CartScreenState extends State<CartScreen> {
                           fontSize: 22,
                           fontWeight: FontWeight.w400)),
                   TextSpan(
-                      text: " \$${user.userModel.totalCartPrice / 100}",
+                      text: " \₹${user.userModel.totalCartPrice}",
                       style: TextStyle(
                           color: primary,
                           fontSize: 22,
@@ -182,7 +188,7 @@ class _CartScreenState extends State<CartScreen> {
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: <Widget>[
-                                            Text('Your cart is emty', textAlign: TextAlign.center,),
+                                            Text('Your cart is empty', textAlign: TextAlign.center,),
                                           ],
                                         ),
                                       ],
@@ -190,7 +196,8 @@ class _CartScreenState extends State<CartScreen> {
                                   ),
                                 ),
                               );
-                            });
+                            }
+                            );
                         return;
                       }
                       showDialog(
@@ -208,7 +215,7 @@ class _CartScreenState extends State<CartScreen> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('You will be charged \$${user.userModel.totalCartPrice / 100} upon delivery!', textAlign: TextAlign.center,),
+                                      Text('You will be charged \₹${user.userModel.totalCartPrice } upon delivery!', textAlign: TextAlign.center,),
 
                                       SizedBox(
                                         width: 320.0,
@@ -228,10 +235,11 @@ class _CartScreenState extends State<CartScreen> {
                                               bool value = await user.removeFromCart(cartItem: cartItem);
                                               if(value){
                                                 user.reloadUserModel();
-                                                print("Item added to cart");
+                                                print("Item removed from to cart");
                                                 _key.currentState.showSnackBar(
-                                                    SnackBar(content: Text("Removed from Cart!"))
+                                                    SnackBar(content: Text("your item is on the way"))
                                                 );
+                                                closePreviousScreen(context, Home());
                                               }else{
                                                 print("ITEM WAS NOT REMOVED");
                                               }
@@ -239,7 +247,7 @@ class _CartScreenState extends State<CartScreen> {
                                             _key.currentState.showSnackBar(
                                                 SnackBar(content: Text("Order created!"))
                                             );
-                                            Navigator.pop(context);
+
 
                                           },
                                           child: Text(
@@ -275,7 +283,8 @@ class _CartScreenState extends State<CartScreen> {
                       size: 20,
                       color: white,
                       weight: FontWeight.normal,
-                    )),
+                    )
+                ),
               )
             ],
           ),

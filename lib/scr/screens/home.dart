@@ -1,25 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:food_course/scr/helpers/screen_navigation.dart';
-import 'package:food_course/scr/helpers/style.dart';
-import 'package:food_course/scr/providers/app.dart';
-import 'package:food_course/scr/providers/category.dart';
-import 'package:food_course/scr/providers/product.dart';
-import 'package:food_course/scr/providers/restaurant.dart';
-import 'package:food_course/scr/providers/user.dart';
-import 'package:food_course/scr/screens/cart.dart';
-import 'package:food_course/scr/screens/category.dart';
-import 'package:food_course/scr/screens/login.dart';
-import 'package:food_course/scr/screens/order.dart';
-import 'package:food_course/scr/screens/product_search.dart';
-import 'package:food_course/scr/screens/restaurant.dart';
-import 'package:food_course/scr/screens/restaurants_search.dart';
-import 'package:food_course/scr/widgets/categories.dart';
-import 'package:food_course/scr/widgets/custom_text.dart';
-import 'package:food_course/scr/widgets/featured_products.dart';
-import 'package:food_course/scr/widgets/loading.dart';
-import 'package:food_course/scr/widgets/restaurant.dart';
+import 'package:foodswipe/scr/helpers/screen_navigation.dart';
+import 'package:foodswipe/scr/helpers/style.dart';
+import 'package:foodswipe/scr/providers/app.dart';
+import 'package:foodswipe/scr/providers/category.dart';
+import 'package:foodswipe/scr/providers/product.dart';
+import 'package:foodswipe/scr/providers/restaurant.dart';
+import 'package:foodswipe/scr/providers/user.dart';
+import 'package:foodswipe/scr/screens/cart.dart';
+import 'package:foodswipe/scr/screens/category.dart';
+import 'package:foodswipe/scr/screens/login.dart';
+import 'package:foodswipe/scr/screens/order.dart';
+import 'package:foodswipe/scr/screens/product_search.dart';
+import 'package:foodswipe/scr/screens/restaurant.dart';
+import 'package:foodswipe/scr/screens/restaurants_search.dart';
+import 'package:foodswipe/scr/widgets/categories.dart';
+import 'package:foodswipe/scr/widgets/custom_text.dart';
+import 'package:foodswipe/scr/widgets/featured_products.dart';
+import 'package:foodswipe/scr/widgets/loading.dart';
+import 'package:foodswipe/scr/widgets/restaurant.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -202,19 +202,14 @@ class _HomeState extends State<Home> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () async {
-//                              app.changeLoading();
                               await productProvider.loadProductsByCategory(
-                                  categoryName:
-                                      categoryProvider.categories[index].name);
+                                  categoryName: categoryProvider.categories[index].name);
 
                               changeScreen(
                                   context,
                                   CategoryScreen(
-                                    categoryModel:
-                                        categoryProvider.categories[index],
+                                    categoryModel: categoryProvider.categories[index],
                                   ));
-
-//                              app.changeLoading();
 
                             },
                             child: CategoryWidget(
@@ -227,7 +222,7 @@ class _HomeState extends State<Home> {
                     height: 5,
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(3.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -241,7 +236,7 @@ class _HomeState extends State<Home> {
                   ),
                   Featured(),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(3.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -257,11 +252,9 @@ class _HomeState extends State<Home> {
                     children: restaurantProvider.restaurants
                         .map((item) => GestureDetector(
                               onTap: () async {
-                                app.changeLoading();
 
                                 await productProvider.loadProductsByRestaurant(
                                     restaurantId: item.id);
-                                app.changeLoading();
 
                                 changeScreen(
                                     context,

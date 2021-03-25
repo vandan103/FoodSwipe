@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:food_course/scr/helpers/screen_navigation.dart';
-import 'package:food_course/scr/helpers/style.dart';
-import 'package:food_course/scr/models/category.dart';
-import 'package:food_course/scr/models/restaurant.dart';
-import 'package:food_course/scr/providers/product.dart';
-import 'package:food_course/scr/widgets/custom_text.dart';
-import 'package:food_course/scr/widgets/loading.dart';
-import 'package:food_course/scr/widgets/product.dart';
-import 'package:food_course/scr/widgets/small_floating_button.dart';
+import 'package:foodswipe/scr/helpers/screen_navigation.dart';
+import 'package:foodswipe/scr/helpers/style.dart';
+import 'package:foodswipe/scr/models/category.dart';
+import 'package:foodswipe/scr/models/restaurant.dart';
+import 'package:foodswipe/scr/providers/product.dart';
+import 'package:foodswipe/scr/widgets/custom_text.dart';
+import 'package:foodswipe/scr/widgets/loading.dart';
+import 'package:foodswipe/scr/widgets/product.dart';
+import 'package:foodswipe/scr/widgets/small_floating_button.dart';
 import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -38,7 +38,7 @@ class RestaurantScreen extends StatelessWidget {
                   // restaurant image
                   ClipRRect(
 
-                borderRadius: BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(20),
                   bottomRight: Radius.circular(20),
                 ),
@@ -86,7 +86,7 @@ class RestaurantScreen extends StatelessWidget {
                       bottom: 40,
                       child: Align(
                           alignment: Alignment.bottomCenter,
-                          child: CustomText(text: "Average Price: \$" + restaurantModel.avgPrice.toString(), color: white, size: 18, weight: FontWeight.w300,))),
+                          child: CustomText(text: "Average Price: \₹" + restaurantModel.avgPrice.toString(), color: white, size: 18, weight: FontWeight.w300,))),
 
                   // rating widget
                   Positioned.fill(

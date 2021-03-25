@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_course/scr/helpers/screen_navigation.dart';
-import 'package:food_course/scr/models/products.dart';
-import 'package:food_course/scr/providers/product.dart';
-import 'package:food_course/scr/providers/user.dart';
-import 'package:food_course/scr/screens/details.dart';
+import 'package:foodswipe/scr/helpers/screen_navigation.dart';
+import 'package:foodswipe/scr/models/products.dart';
+import 'package:foodswipe/scr/providers/product.dart';
+import 'package:foodswipe/scr/providers/user.dart';
+import 'package:foodswipe/scr/screens/details.dart';
 import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
 
@@ -21,8 +21,6 @@ class _FeaturedState extends State<Featured> {
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
-    final user = Provider.of<UserProvider>(context);
-
 
     return Container(
       height: 220,
@@ -62,8 +60,8 @@ class _FeaturedState extends State<Featured> {
                             children: <Widget>[
                               Positioned.fill(
                                   child: Align(
-                                alignment: Alignment.center,
-                                child: Loading(),
+                                   alignment: Alignment.center,
+                                   child: Loading(),
                               )),
                               Center(
                                 child: FadeInImage.memoryNetwork(
@@ -81,22 +79,9 @@ class _FeaturedState extends State<Featured> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: CustomText(
-                                text: productProvider.products[index].name ??
-                                    "id null",
+                                text: productProvider.products[index].name ?? "id null",
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.all(8),
-                              child: GestureDetector(
-                                onTap: (){
-//                                  setState(() {
-//                                    productProvider.products[index].liked = !productProvider.products[index].liked;
-//                                  });
-//                                  productProvider.likeDislikeProduct(userId: user.userModel.id, product: productProvider.products[index], liked: productProvider.products[index].liked);
-                                },
-                                child: Container(),
-                              ),
-                            )
                           ],
                         ),
                         Row(
@@ -142,7 +127,7 @@ class _FeaturedState extends State<Featured> {
                               padding: const EdgeInsets.only(right: 8.0),
                               child: CustomText(
                                 text:
-                                    "\$${productProvider.products[index].price / 100}",
+                                    "\₹${productProvider.products[index].price }",
                                 weight: FontWeight.bold,
                               ),
                             ),

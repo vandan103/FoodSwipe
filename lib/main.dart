@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:food_course/scr/providers/app.dart';
-import 'package:food_course/scr/providers/category.dart';
-import 'package:food_course/scr/providers/product.dart';
-import 'package:food_course/scr/providers/restaurant.dart';
-import 'package:food_course/scr/providers/user.dart';
-import 'package:food_course/scr/screens/home.dart';
-import 'package:food_course/scr/screens/login.dart';
-import 'package:food_course/scr/screens/splash.dart';
-import 'package:food_course/scr/widgets/loading.dart';
+import 'package:foodswipe/scr/providers/app.dart';
+import 'package:foodswipe/scr/providers/category.dart';
+import 'package:foodswipe/scr/providers/product.dart';
+import 'package:foodswipe/scr/providers/restaurant.dart';
+import 'package:foodswipe/scr/providers/user.dart';
+import 'package:foodswipe/scr/screens/home.dart';
+import 'package:foodswipe/scr/screens/login.dart';
+import 'package:foodswipe/scr/screens/registration.dart';
+import 'package:foodswipe/scr/screens/splash.dart';
+import 'package:foodswipe/scr/widgets/loading.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -37,6 +38,7 @@ class ScreensController extends StatelessWidget {
       case Status.Uninitialized:
         return Splash();
       case Status.Unauthenticated:
+        return RegistrationScreen();
       case Status.Authenticating:
         return LoginScreen();
       case Status.Authenticated:

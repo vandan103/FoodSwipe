@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:food_course/scr/helpers/screen_navigation.dart';
-import 'package:food_course/scr/helpers/style.dart';
-import 'package:food_course/scr/models/products.dart';
-import 'package:food_course/scr/providers/product.dart';
-import 'package:food_course/scr/providers/restaurant.dart';
-import 'package:food_course/scr/screens/restaurant.dart';
+import 'package:foodswipe/scr/helpers/screen_navigation.dart';
+import 'package:foodswipe/scr/helpers/style.dart';
+import 'package:foodswipe/scr/models/products.dart';
+import 'package:foodswipe/scr/providers/product.dart';
+import 'package:foodswipe/scr/providers/restaurant.dart';
+import 'package:foodswipe/scr/screens/restaurant.dart';
 import 'package:provider/provider.dart';
 
 import 'custom_text.dart';
@@ -34,7 +34,6 @@ class ProductWidget extends StatelessWidget {
                   blurRadius: 5),
             ]
         ),
-//            height: 160,
         child: Row(
           children: <Widget>[
             Container(
@@ -76,11 +75,6 @@ class ProductWidget extends StatelessWidget {
                               ]),
                           child: Padding(
                             padding: const EdgeInsets.all(4.0),
-                            child: Icon(
-                              Icons.favorite_border,
-                              color: red,
-                              size: 18,
-                            ),
                           ),
                         ),
                       )
@@ -149,7 +143,7 @@ class ProductWidget extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(right:8.0),
-                        child: CustomText(text: "\$${ product.price / 100}",weight: FontWeight.bold,),
+                        child: CustomText(text: "\₹${ product.price }",weight: FontWeight.bold,),
                       ),
                     ],
                   ),

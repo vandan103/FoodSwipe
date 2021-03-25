@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_course/scr/widgets/custom_text.dart';
+import 'package:foodswipe/scr/widgets/custom_text.dart';
 
 class BottomNavIcon extends StatelessWidget {
   final String image;
