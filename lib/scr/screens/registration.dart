@@ -105,6 +105,33 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
                 child: Padding(padding: EdgeInsets.only(left: 10),
                   child: TextFormField(
+                    controller: userProvider.adress,
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "Address",
+                        icon: Icon(Icons.location_on),
+                    ),
+                    validator: (String value){
+                      if(value.isEmpty)
+                      {
+                        return 'Please Enter Address';
+                      }
+                      return null;
+                    },
+                  ),),
+              ),
+            ),
+
+
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: Container(
+                decoration: BoxDecoration(
+                    border: Border.all(color: grey),
+                    borderRadius: BorderRadius.circular(15)
+                ),
+                child: Padding(padding: EdgeInsets.only(left: 10),
+                  child: TextFormField(
                     controller: userProvider.password,
                     decoration: InputDecoration(
                         border: InputBorder.none,

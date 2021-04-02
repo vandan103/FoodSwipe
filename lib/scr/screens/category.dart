@@ -22,56 +22,55 @@ class CategoryScreen extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-          child: ListView(
-           children: <Widget>[
-          Stack(
-            children: <Widget>[
-              Positioned.fill(
+        child: ListView(
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                Positioned.fill(
                   child: Align(
-                  alignment: Alignment.center,
-                   child: Loading(),
-              ),
-              ),
-              ClipRRect(
-                child: FadeInImage.memoryNetwork(
-                  placeholder: kTransparentImage,
-                  image: categoryModel.image,
-                  height: 160,
-                  fit: BoxFit.fill,
-                  width: double.infinity,
+                    alignment: Alignment.center,
+                    child: Loading(),
+                  ),
                 ),
-              ),
-              Container(
-                height: 160,
-                decoration: BoxDecoration(
-
-                    gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: [
-                    Colors.black.withOpacity(0.6),
-                    Colors.black.withOpacity(0.6),
-                    Colors.black.withOpacity(0.6),
-                    Colors.black.withOpacity(0.4),
-                    Colors.black.withOpacity(0.1),
-                    Colors.black.withOpacity(0.05),
-                    Colors.black.withOpacity(0.025),
-                  ],
-                )),
-              ),
-              Positioned.fill(
+                ClipRRect(
+                  child: FadeInImage.memoryNetwork(
+                    placeholder: kTransparentImage,
+                    image: categoryModel.image,
+                    height: 160,
+                    fit: BoxFit.fill,
+                    width: double.infinity,
+                  ),
+                ),
+                Container(
+                  height: 160,
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                    colors: [
+                      Colors.black.withOpacity(0.6),
+                      Colors.black.withOpacity(0.6),
+                      Colors.black.withOpacity(0.6),
+                      Colors.black.withOpacity(0.4),
+                      Colors.black.withOpacity(0.1),
+                      Colors.black.withOpacity(0.05),
+                      Colors.black.withOpacity(0.025),
+                    ],
+                  )),
+                ),
+                Positioned.fill(
                   bottom: 50,
                   child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: CustomText(
-                        text: categoryModel.name,
-                        color: white,
-                        size: 26,
-                        weight: FontWeight.w300,
-                      ),
+                    alignment: Alignment.bottomCenter,
+                    child: CustomText(
+                      text: categoryModel.name,
+                      color: white,
+                      size: 26,
+                      weight: FontWeight.w300,
+                    ),
                   ),
-              ),
-              Positioned.fill(
+                ),
+                Positioned.fill(
                   top: 5,
                   child: Align(
                     alignment: Alignment.topLeft,
@@ -83,36 +82,39 @@ class CategoryScreen extends StatelessWidget {
                         },
                         child: Container(
                             child: Icon(
-                              Icons.close,
-                              color: white,
-                            )),
+                          Icons.close,
+                          color: white,
+                        )),
                       ),
                     ),
                   ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Column(
-            children: productProvider.productsByCategory
-                .map((item) => GestureDetector(
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Column(
+              children: productProvider.productsByCategory
+                  .map(
+                    (item) => GestureDetector(
                       onTap: () {
                         changeScreen(
-                            context,
-                            Details(
-                              product: item,
-                            ));
+                          context,
+                          Details(
+                            product: item,
+                          ),
+                        );
                       },
                       child: ProductWidget(
                         product: item,
                       ),
-                    ))
-                .toList(),
-          )
-        ],
-      ),
+                    ),
+                  )
+                  .toList(),
+            )
+          ],
+        ),
       ),
     );
   }

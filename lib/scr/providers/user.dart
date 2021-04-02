@@ -39,6 +39,7 @@ class UserProvider with ChangeNotifier{
   TextEditingController password = TextEditingController();
   TextEditingController name = TextEditingController();
   TextEditingController cpassword=TextEditingController();
+  TextEditingController adress=TextEditingController();
 
 
   UserProvider.initialize(): _auth = FirebaseAuth.instance{
@@ -69,6 +70,7 @@ class UserProvider with ChangeNotifier{
           'name':name.text,
           'email':email.text,
           'uid':result.user.uid,
+          'address':adress.text,
         });
       });
       return true;
@@ -79,6 +81,37 @@ class UserProvider with ChangeNotifier{
       return false;
     }
   }
+  Future changePassword(String newpassword) async{
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+
+    user.updatePassword(newpassword).then((_){
+      print("Successfully changed password");
+    }).catchError((error){
+      print("Password can't be changed" + error.toString());
+      //This might happen, when the wrong password is in, the user isn't found, or if the user hasn't logged in recently.
+    });
+  }
+
+  Future editAddress(String address)async{
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    _firestore.collection('users').document(user.uid).updateData({
+      'address':address,
+    }).then((_) =>  print("Successfully changed address") )
+        .catchError((onError){
+          print("address can't changed " + onError.toString() );
+    });
+
+  }
+  Future editName(String name)async {
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    _firestore.collection('users').document(user.uid).updateData({
+      'name':name,
+    }).then((_) => print("Successfully changed name"))
+    .catchError((onError)=> print("name can't changed" + onError.toString() ));
+
+  }
+
+
 
   Future signOut()async{
     _auth.signOut();

@@ -17,6 +17,7 @@ class RestaurantsSearchScreen extends StatelessWidget {
     final restaurantProvider = Provider.of<RestaurantProvider>(context);
     final productProvider = Provider.of<ProductProvider>(context);
     final app = Provider.of<AppProvider>(context);
+    bool flag=false;
 
     return Scaffold(
       appBar: AppBar(
@@ -79,22 +80,26 @@ class RestaurantsSearchScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                         onTap: () async {
-                          app.changeLoading();
-                          await productProvider.loadProductsByRestaurant(
-                              restaurantId: restaurantProvider
-                                  .searchedRestaurants[index].id);
-                          app.changeLoading();
+                          //  app.changeLoading();
+                          if (!flag) {
+                            flag=true;
+                            await productProvider.loadProductsByRestaurant(
+                                restaurantId: restaurantProvider
+                                    .searchedRestaurants[index].id);
+                                                     // app.changeLoading();
 
-                          changeScreen(
-                              context,
-                              RestaurantScreen(
-                                restaurantModel: restaurantProvider
-                                    .searchedRestaurants[index],
-                              ));
+                            changeScreen(
+                                context,
+                                RestaurantScreen(
+                                  restaurantModel: restaurantProvider
+                                      .searchedRestaurants[index],
+                                ));
+                          }
                         },
                         child: RestaurantWidget(
                             restaurant:
-                                restaurantProvider.searchedRestaurants[index]));
+                                restaurantProvider.searchedRestaurants[index])
+                    );
                   }),
     );
   }

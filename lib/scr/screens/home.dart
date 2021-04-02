@@ -10,6 +10,8 @@ import 'package:foodswipe/scr/providers/restaurant.dart';
 import 'package:foodswipe/scr/providers/user.dart';
 import 'package:foodswipe/scr/screens/cart.dart';
 import 'package:foodswipe/scr/screens/category.dart';
+import 'package:foodswipe/scr/screens/edit_profile.dart';
+import 'package:foodswipe/scr/screens/edit_password.dart';
 import 'package:foodswipe/scr/screens/login.dart';
 import 'package:foodswipe/scr/screens/order.dart';
 import 'package:foodswipe/scr/screens/product_search.dart';
@@ -35,6 +37,7 @@ class _HomeState extends State<Home> {
     final categoryProvider = Provider.of<CategoryProvider>(context);
     final restaurantProvider = Provider.of<RestaurantProvider>(context);
     final productProvider = Provider.of<ProductProvider>(context);
+    bool flag=false;
     //restaurantProvider.loadSingleRestaurant();
     return Scaffold(
       appBar: AppBar(
@@ -81,9 +84,8 @@ class _HomeState extends State<Home> {
               leading: Icon(Icons.home),
               title: CustomText(text: "Home"),
             ),
-
             ListTile(
-              onTap: () async{
+              onTap: () async {
                 await user.getOrders();
                 changeScreen(context, OrdersScreen());
               },
@@ -96,6 +98,20 @@ class _HomeState extends State<Home> {
               },
               leading: Icon(Icons.shopping_cart),
               title: CustomText(text: "Cart"),
+            ),
+            ListTile(
+              onTap: () {
+                changeScreen(context, EditProfile());
+              },
+              leading: Icon(Icons.edit_location),
+              title: CustomText(text: "Edit Profile"),
+            ),
+            ListTile(
+              onTap: () {
+                changeScreen(context, EditPassword());
+              },
+              leading: Icon(Icons.edit),
+              title: CustomText(text: "Edit Password"),
             ),
             ListTile(
               onTap: () {
@@ -140,16 +156,18 @@ class _HomeState extends State<Home> {
                           ),
                           title: TextField(
                             textInputAction: TextInputAction.search,
-                            onSubmitted: (pattern)async{
+                            onSubmitted: (pattern) async {
                               app.changeLoading();
-                              if(app.search == SearchBy.PRODUCTS){
-                                await productProvider.search(productName: pattern);
+                              if (app.search == SearchBy.PRODUCTS) {
+                                await productProvider.search(
+                                    productName: pattern);
                                 changeScreen(context, ProductSearchScreen());
-                              }else{
+                              } else {
                                 await restaurantProvider.search(name: pattern);
-                                changeScreen(context, RestaurantsSearchScreen());
+                                changeScreen(
+                                    context, RestaurantsSearchScreen());
                               }
-                             app.changeLoading();
+                              app.changeLoading();
                             },
                             decoration: InputDecoration(
                               hintText: "Find food and restaurant",
@@ -160,33 +178,36 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
-                      CustomText(text: "Search by:", color: grey, weight: FontWeight.w300,),
+                      CustomText(
+                        text: "Search by:",
+                        color: grey,
+                        weight: FontWeight.w300,
+                      ),
                       DropdownButton<String>(
                         value: app.filterBy,
                         style: TextStyle(
+                            color: primary, fontWeight: FontWeight.w300),
+                        icon: Icon(
+                          Icons.filter_list,
                           color: primary,
-                          fontWeight: FontWeight.w300
                         ),
-                        icon: Icon(Icons.filter_list,
-                          color: primary,),
                         elevation: 0,
-                        onChanged: (value){
-                          if (value == "Products"){
+                        onChanged: (value) {
+                          if (value == "Products") {
                             app.changeSearchBy(newSearchBy: SearchBy.PRODUCTS);
-                          }else{
-                            app.changeSearchBy(newSearchBy: SearchBy.RESTAURANTS);
+                          } else {
+                            app.changeSearchBy(
+                                newSearchBy: SearchBy.RESTAURANTS);
                           }
                         },
-                        items: <String>["Products", "Restaurants"].map<DropdownMenuItem<String>>((String value){
+                        items: <String>["Products", "Restaurants"]
+                            .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value));
+                              value: value, child: Text(value));
                         }).toList(),
-
                       ),
                     ],
                   ),
@@ -202,15 +223,19 @@ class _HomeState extends State<Home> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () async {
-                              await productProvider.loadProductsByCategory(
-                                  categoryName: categoryProvider.categories[index].name);
+                              if (!flag) {
+                                flag=true;
+                                await productProvider.loadProductsByCategory(
+                                    categoryName:
+                                        categoryProvider.categories[index].name);
 
-                              changeScreen(
-                                  context,
-                                  CategoryScreen(
-                                    categoryModel: categoryProvider.categories[index],
-                                  ));
-
+                                changeScreen(
+                                    context,
+                                    CategoryScreen(
+                                      categoryModel:
+                                          categoryProvider.categories[index],
+                                    ));
+                              }
                             },
                             child: CategoryWidget(
                               category: categoryProvider.categories[index],
@@ -250,17 +275,20 @@ class _HomeState extends State<Home> {
                   ),
                   Column(
                     children: restaurantProvider.restaurants
-                        .map((item) => GestureDetector(
+                        .map((item) => InkResponse(
                               onTap: () async {
+                                if (!flag) {
+                                  flag = true;
+                                  await productProvider
+                                      .loadProductsByRestaurant(
+                                          restaurantId: item.id);
 
-                                await productProvider.loadProductsByRestaurant(
-                                    restaurantId: item.id);
-
-                                changeScreen(
-                                    context,
-                                    RestaurantScreen(
-                                      restaurantModel: item,
-                                    ));
+                                  changeScreen(
+                                      context,
+                                      RestaurantScreen(
+                                        restaurantModel: item,
+                                      ));
+                                }
                               },
                               child: RestaurantWidget(
                                 restaurant: item,

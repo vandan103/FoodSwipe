@@ -18,6 +18,7 @@ class ProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final restaurantProvider = Provider.of<RestaurantProvider>(context);
     final productProvider = Provider.of<ProductProvider>(context);
+    bool flag=false;
 
 
     return  Padding(
@@ -93,10 +94,14 @@ class ProductWidget extends StatelessWidget {
                         SizedBox(width: 10,),
                         GestureDetector(
                             onTap: ()async{
-                              await productProvider.loadProductsByRestaurant(
-                                  restaurantId: product.restaurantId.toString());
-                              await restaurantProvider.loadSingleRestaurant(retaurantId: product.restaurantId.toString());
-                              changeScreen(context, RestaurantScreen(restaurantModel: restaurantProvider.restaurant,));
+
+                              if (!flag) {
+                                flag=true;
+                                await productProvider.loadProductsByRestaurant(
+                                    restaurantId: product.restaurantId.toString());
+                                await restaurantProvider.loadSingleRestaurant(retaurantId: product.restaurantId.toString());
+                                changeScreenReplacement(context, RestaurantScreen(restaurantModel: restaurantProvider.restaurant,));
+                              }
                             },
                             child: CustomText(text: product.restaurant, color: primary, weight: FontWeight.w300, size: 14,)),
 

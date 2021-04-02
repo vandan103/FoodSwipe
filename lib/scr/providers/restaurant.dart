@@ -25,7 +25,7 @@ class RestaurantProvider with ChangeNotifier{
 
   Future search({String name})async{
     searchedRestaurants = await _restaurantServices.searchRestaurant(restaurantName: name);
-    print("RESTOS ARE: ${searchedRestaurants.length}");
+    print("RESTORANTS ARE: ${searchedRestaurants.length}");
     notifyListeners();
   }
 }

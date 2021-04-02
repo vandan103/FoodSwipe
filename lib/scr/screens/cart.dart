@@ -239,7 +239,8 @@ class _CartScreenState extends State<CartScreen> {
                                                 _key.currentState.showSnackBar(
                                                     SnackBar(content: Text("your item is on the way"))
                                                 );
-                                                closePreviousScreen(context, Home());
+
+                                                changeScreenReplacement(context, Home());
                                               }else{
                                                 print("ITEM WAS NOT REMOVED");
                                               }
